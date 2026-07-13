@@ -4,7 +4,7 @@ An agent skill that turns recent coding-agent session history into durable repos
 
 ![](https://repository-images.githubusercontent.com/1299260577/40449da3-5452-439c-8801-8839127831a8)
 
-<small>Image by Homutan, source: https://www.pixiv.net/artworks/99426317</small>
+<small>*Image by Homutan, source: https://www.pixiv.net/artworks/99426317*</small>
 
 Invoke it manually: `/reinit` in Claude Code and Crush, `$reinit` in Codex, `/skill:reinit` in pi.
 
