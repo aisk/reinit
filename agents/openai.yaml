@@ -1,0 +1,7 @@
+interface:
+  display_name: "Reinitialize Repository Guidance"
+  short_description: "Learn durable guidance from recent agent work"
+  default_prompt: "Use $reinit to refresh durable repository guidance from recent agent work."
+
+policy:
+  allow_implicit_invocation: false
