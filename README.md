@@ -1,4 +1,4 @@
-# Re-init
+# Ｒｅ・ｉｎｉｔ／再初期化
 
 An agent skill that turns recent coding-agent session history into durable repository guidance. It reviews what the agent repeatedly had to rediscover and what the user explicitly corrected, then writes only the facts that pass a strict retention test into `AGENTS.md` / `CLAUDE.md`.
 
