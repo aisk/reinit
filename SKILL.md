@@ -2,6 +2,7 @@
 name: reinit
 description: Review available recent code-agent history and tool calls, then update the current repository's durable agent guidance with repeatedly needed facts and user-corrected conventions. Run only when the user explicitly invokes /reinit, $reinit, or names the reinit skill; never invoke automatically.
 disable-model-invocation: true
+user-invocable: true
 ---
 
 # Reinit
