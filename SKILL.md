@@ -1,6 +1,7 @@
 ---
 name: reinit
 description: Review available recent code-agent history and tool calls, then update the current repository's durable agent guidance with repeatedly needed facts and user-corrected conventions. Run only when the user explicitly invokes /reinit, $reinit, or names the reinit skill; never invoke automatically.
+disable-model-invocation: true
 ---
 
 # Reinit
@@ -11,7 +12,7 @@ Refresh the current repository's agent guidance from evidence in recent agent wo
 
 1. Establish the repository root and scope all edits to that repository.
 2. Read the recent conversation history available in the current session, emphasizing the preceding agent turns and their tool calls.
-3. When the environment exposes session-history tools or local agent history through an established product interface, inspect the most recent relevant sessions. Do not search unrelated home-directory data, credentials, caches, or other repositories merely to find more history.
+3. When the environment exposes session-history tools or local agent history through an established product interface, inspect the most recent relevant sessions. Use the reference locations under "Known local history locations" as starting points. Do not search unrelated home-directory data, credentials, caches, or other repositories merely to find more history.
 4. Record candidate facts that the agent repeatedly had to discover, candidate conventions that affected its decisions, and corrections or preferences explicitly supplied by the user.
 5. Read the applicable guidance files before proposing changes. Check `AGENTS.md`, `CLAUDE.md`, and their relevant ancestor or nested variants. Follow existing repository conventions for which file is canonical.
 6. Verify factual candidates against the current repository using the cheapest authoritative source. Prefer manifests, configuration, existing documentation, and focused file inspection over repeating broad exploratory searches.
@@ -68,6 +69,18 @@ Exclude:
 - Use exact commands only after verifying them. Mark required working directories and prerequisites.
 - Do not add a generated timestamp, session identifier, or `/reinit` bookkeeping section.
 - Do not modify application code, configuration, or unrelated documentation during this workflow.
+
+## Known local history locations
+
+These paths are reference points only. Storage layouts change between product versions and platforms, so verify a path exists before reading it and fall back to the visible conversation when it does not.
+
+- Claude Code: `~/.claude/projects/<encoded-cwd>/<session-id>.jsonl`, one transcript per session, where `<encoded-cwd>` is the working-directory path with `/` replaced by `-`.
+- Codex CLI: `~/.codex/sessions/<YYYY>/<MM>/<DD>/rollout-*.jsonl`, stored globally across repositories; filter by the `cwd` recorded inside each file. `~/.codex/history.jsonl` holds user prompts only, without tool calls.
+- opencode: `~/.local/share/opencode/opencode.db` (SQLite) in newer versions; older versions stored JSON files under `~/.local/share/opencode/storage/session/` and `storage/message/`.
+- Crush: `<repo>/.crush/crush.db`, a per-repository SQLite database inside the repository itself.
+- pi: `~/.pi/agent/sessions/<encoded-cwd>/<timestamp>_<id>.jsonl`, one transcript per session, grouped under an encoded working-directory path.
+
+Transcripts can be large. Extract user messages, corrections, and repeated discovery work with targeted filters (grep, jq, or SQL) instead of reading whole files. Only read history belonging to the current repository, and never copy secrets or personal data from transcripts into guidance files.
 
 ## History limitations
 
