@@ -12,15 +12,14 @@ Refresh the current repository's agent guidance from evidence in recent agent wo
 ## Workflow
 
 1. Establish the repository root and scope all edits to that repository.
-2. Read the recent conversation history available in the current session, emphasizing the preceding agent turns and their tool calls.
-3. When the environment exposes session-history tools or local agent history through an established product interface, inspect the most recent relevant sessions. Use the reference locations under "Known local history locations" as starting points. Do not search unrelated home-directory data, credentials, caches, or other repositories merely to find more history.
-4. Record candidate facts that the agent repeatedly had to discover, candidate conventions that affected its decisions, and corrections or preferences explicitly supplied by the user.
-5. Read the applicable guidance files before proposing changes. Check `AGENTS.md`, `CLAUDE.md`, and their relevant ancestor or nested variants. Follow existing repository conventions for which file is canonical.
-6. Verify factual candidates against the current repository using the cheapest authoritative source. Prefer manifests, configuration, existing documentation, and focused file inspection over repeating broad exploratory searches.
-7. Apply the retention test below. Discard candidates that do not pass.
-8. Update the canonical guidance file in place. Preserve existing content and structure, remove exact duplication, and make the smallest coherent edit.
-9. Review the diff for accuracy, durability, scope, sensitive data, contradictions, and unnecessary verbosity.
-10. Report which guidance file changed, what durable knowledge was added or corrected, and which tempting candidates were intentionally excluded. If nothing qualifies, make no edit and say so.
+2. Review the current session's conversation, then any local agent history available for this repository, starting from the reference locations under "Known local history locations". By default inspect up to the 20 most recent sessions from the last 30 days, excluding the current session's own transcript; widen the window (for example, to 90 days) on a first run when no guidance file exists yet. Do not search unrelated home-directory data, credentials, caches, or other repositories merely to find more history.
+3. Record candidate facts that the agent repeatedly had to discover, candidate conventions that affected its decisions, and corrections or preferences explicitly supplied by the user.
+4. Read the applicable guidance files before proposing changes. Check `AGENTS.md`, `CLAUDE.md`, and their relevant ancestor or nested variants. Follow existing repository conventions for which file is canonical.
+5. Verify factual candidates against the current repository using the cheapest authoritative source. Prefer manifests, configuration, existing documentation, and focused file inspection over repeating broad exploratory searches.
+6. Apply the retention test below. Discard candidates that do not pass.
+7. Update the canonical guidance file in place. Preserve existing content and structure, remove exact duplication, and make the smallest coherent edit.
+8. Review the diff for accuracy, durability, scope, sensitive data, contradictions, and unnecessary verbosity.
+9. Report which guidance file changed, what durable knowledge was added or corrected, and which tempting candidates were intentionally excluded. If nothing qualifies, make no edit and say so.
 
 ## Retention test
 
@@ -28,7 +27,7 @@ Add a fact or instruction only when all applicable conditions hold:
 
 - It is relevant to future work in this repository.
 - It is unlikely to change between ordinary tasks.
-- It is not already stated in applicable guidance.
+- It is not already stated in the repository's guidance files. User-level configuration and personal agent memory do not count as already stated: they are invisible to other contributors, so a repository-relevant fact or correction recorded only there must still be added to the repository guidance. Purely personal preferences with no repository relevance stay out.
 - It is specific enough to change or accelerate agent behavior.
 - It is supported by current repository evidence or an explicit user preference.
 - It either appeared repeatedly in recent discovery work, or represents a clear user correction or standing preference. One explicit correction is sufficient; incidental one-off behavior is not.
